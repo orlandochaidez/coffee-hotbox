@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Coffee Hotbox — Coffee × Cannabis News &amp; Culture</title>
+<meta name="description" content="Coffee Hotbox is an independent editorial publication covering coffee and cannabis: culture, new products, laws, supply chains — and where the two worlds meet. The wire updates itself via RSS.">
+<style>
+  :root{
+    --bg:#f3f6ee;            /* soft light green tint */
+    --card:#ffffff;
+    --ink:#1d2b1a;           /* deep green-charcoal */
+    --muted:#5f7263;
+    --green:#4c7a3f;
+    --green-deep:#2f5227;
+    --pill:#dcebd2;          /* active tab pill */
+    --soft:#e9f2df;          /* panel tint */
+    --line:#dde7d2;
+    --brown:#8a6b4f;
+    --radius:20px;
+    --shadow:0 6px 24px rgba(60,90,40,.08);
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--bg);color:var(--ink);
+       font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+       line-height:1.55;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:1120px;margin:0 auto;padding:0 20px}
+  h1,h2,h3{letter-spacing:-.02em}
+
+  /* ===== Top bar (like the mockup) ===== */
+  header{position:sticky;top:0;z-index:10;padding:14px 0 0}
+  .bar{display:flex;align-items:center;justify-content:space-between;gap:16px;
+       background:#eef4e4;border:1px solid var(--line);border-radius:999px;
+       padding:10px 18px;box-shadow:var(--shadow)}
+  .logo{display:flex;align-items:center;gap:10px;font-weight:800;font-size:1.12rem;line-height:1.05}
+  .logo .cup{width:34px;height:34px;flex:none;border:1.6px solid var(--green);border-radius:50%;
+       display:grid;place-items:center;color:var(--green);font-size:16px;background:#fff}
+  .logo small{display:block;font-weight:700;font-size:.6rem;letter-spacing:.22em;color:var(--muted);text-transform:uppercase}
+  nav{display:flex;gap:4px;flex-wrap:wrap}
+  nav a{color:var(--ink);text-decoration:none;font-size:.88rem;font-weight:600;
+        padding:7px 13px;border-radius:999px}
+  nav a:hover{background:#e2eed4}
+  nav a.active{background:var(--pill);color:var(--green-deep)}
+  @media (max-width:760px){ nav a{font-size:.8rem;padding:6px 9px} .logo small{display:none} }
+
+  /* ===== Hero feature ===== */
+  .hero{margin-top:18px;background:linear-gradient(120deg,#f7faf1,#eef5e2);
+        border:1px solid var(--line);border-radius:28px;box-shadow:var(--shadow);
+        padding:34px;display:grid;grid-template-columns:1.15fr .85fr;gap:28px;align-items:center}
+  @media (max-width:820px){ .hero{grid-template-columns:1fr} }
+  .eyebrow{font-size:.72rem;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--green)}
+  .hero h1{font-size:clamp(1.7rem,4.2vw,2.6rem);line-height:1.12;margin:10px 0 12px;font-weight:800}
+  .hero p{color:var(--muted);margin:0 0 16px;max-width:520px}
+  .btn{display:inline-block;background:var(--pill);color:var(--green-deep);font-weight:700;
+       text-decoration:none;padding:10px 18px;border-radius:999px;font-size:.9rem;border:1px solid var(--line)}
+  .btn:hover{background:#cfe2bf}
+  .heroimg{width:100%;height:100%;min-height:220px;object-fit:cover;border-radius:20px;display:block;background:var(--soft)}
+  .heroimg.ph{display:grid;place-items:center;color:var(--muted);font-size:.9rem;min-height:220px}
+
+  /* ===== Wire status ===== */
+  .wirebar{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin:22px 2px 0}
+  .wirebar .dot{width:8px;height:8px;border-radius:50%;background:var(--green);display:inline-block}
+  .wirebar .status{font-size:.82rem;color:var(--muted)}
+  .wirebar button{background:#fff;color:var(--green-deep);border:1px solid var(--line);
+      border-radius:999px;padding:6px 14px;font-size:.8rem;font-weight:700;cursor:pointer}
+  .wirebar button:hover{border-color:var(--green)}
+
+  /* ===== Sections + cards ===== */
+  .sectionhead{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin:36px 2px 14px}
+  .sectionhead h2{font-size:1.45rem;margin:0;font-weight:800}
+  .sectionhead .hint{font-size:.82rem;color:var(--muted)}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:18px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+        box-shadow:var(--shadow);overflow:hidden;display:flex;flex-direction:column}
+  .card .thumb{width:100%;height:170px;object-fit:cover;display:block;background:var(--soft)}
+  .card .body{padding:16px 18px 18px}
+  .chip{display:inline-block;padding:3px 10px;border-radius:999px;font-size:.68rem;font-weight:800;
+        letter-spacing:.08em;text-transform:uppercase;background:var(--soft);color:var(--green-deep)}
+  .chip.brown{background:#f1e7da;color:#6d5136}
+  .chip.blue{background:#e4edf5;color:#3c5a75}
+  .chip.rose{background:#f6e7ea;color:#7c4250}
+  .card h3{margin:9px 0 6px;font-size:1.05rem;line-height:1.3}
+  .card h3 a{color:var(--ink);text-decoration:none}
+  .card h3 a:hover{color:var(--green-deep)}
+  .card p{margin:0;color:var(--muted);font-size:.92rem}
+  .meta{margin-top:12px;font-size:.78rem;color:var(--muted)}
+  .src{color:var(--green-deep);font-weight:700}
+  .quiet{background:var(--card);border:1px dashed var(--line);border-radius:var(--radius);
+         padding:22px;color:var(--muted);font-size:.92rem}
+
+  /* ===== Pairing panel ===== */
+  .pairing{background:linear-gradient(120deg,#e7f0da,#dcebc9);border:1px solid var(--line);
+           border-radius:28px;box-shadow:var(--shadow);padding:30px;margin-top:18px}
+  .pairing h3{margin:8px 0 8px;font-size:1.5rem}
+  .pairing p{color:#33452e;max-width:740px;margin:0}
+  .vs{display:inline-block;margin:0 8px;color:var(--green);font-weight:900}
+
+  footer{margin-top:52px;padding:26px 0 42px;color:var(--muted);font-size:.85rem;
+         border-top:1px solid var(--line)}
+  footer p{margin:0 0 8px;max-width:780px}
+  footer .fine{font-size:.78rem}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <!-- ===== Top bar: tabs are the four sections (Subscriptions on hold — no button) ===== -->
+  <header>
+    <div class="bar">
+      <div class="logo">
+        <span class="cup">☕</span>
+        <span>Coffee Hotbox<small>coffeehotbox.com</small></span>
+      </div>
+      <nav>
+        <a href="#culture" class="active">Culture &amp; Craft</a>
+        <a href="#products">New Products</a>
+        <a href="#laws">Laws &amp; Policy</a>
+        <a href="#money">Supply Chain &amp; Money</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ===== Hero: auto-fills with the newest Culture & Craft story ===== -->
+  <section class="hero" id="culture">
+    <div>
+      <div class="eyebrow">Culture &amp; Craft · Top Story</div>
+      <h1 id="heroTitle">Where coffee and cannabis culture collide</h1>
+      <p id="heroBlurb">Loading the latest feature from the wire…</p>
+      <a class="btn" id="heroLink" href="#latest-culture">Read the latest ↓</a>
+      <div class="meta" id="heroMeta"></div>
+    </div>
+    <div id="heroImgWrap"><div class="heroimg ph">Fresh stories, pulled in automatically</div></div>
+  </section>
+
+  <!-- ===== Wire status ===== -->
+  <div class="wirebar">
+    <span class="dot"></span>
+    <span class="status" id="wireStatus">Loading the wire…</span>
+    <button id="refreshBtn" type="button">Refresh</button>
+  </div>
+
+  <!-- ===== Latest in Culture & Craft (main tab content) ===== -->
+  <div class="sectionhead" id="latest-culture">
+    <h2>Latest in Culture &amp; Craft</h2>
+    <span class="hint">Auto-updates from the wire</span>
+  </div>
+  <div class="grid" id="feed-culture"><div class="quiet">Pouring the latest…</div></div>
+
+  <!-- ===== Pairing of the Week (hand-made) ===== -->
+  <div class="sectionhead"><h2>Pairing of the Week</h2><span class="hint">Hand-made, every Friday</span></div>
+  <div class="pairing">
+    <span class="chip">This Week's Session</span>
+    <h3>Bright Ethiopian Yirgacheffe <span class="vs">×</span> a citrus-forward sativa</h3>
+    <p>Washed Ethiopians drink like lemonade and flowers; pair that lift with a limonene-heavy
+       sativa and the whole morning goes high-definition. Brew it light, keep the dose honest,
+       and let the aromatics do the talking.</p>
+    <div class="meta">New pairing every Friday</div>
+  </div>
+
+  <!-- ===== New Products (incl. crossovers) ===== -->
+  <div class="sectionhead" id="products">
+    <h2>New Products</h2>
+    <span class="hint">Crossovers, roasts, strains, drinks — as they drop</span>
+  </div>
+  <div class="grid" id="feed-crossover"><div class="quiet">Rolling up the newest drops…</div></div>
+
+  <!-- ===== Laws & Policy ===== -->
+  <div class="sectionhead" id="laws">
+    <h2>Laws &amp; Policy</h2>
+    <span class="hint">Legalization, rules, and the politics around both plants</span>
+  </div>
+  <div class="grid" id="feed-laws"><div class="quiet">Checking the docket…</div></div>
+
+  <!-- ===== Supply Chain & Money ===== -->
+  <div class="sectionhead" id="money">
+    <h2>Supply Chain &amp; Money</h2>
+    <span class="hint">Prices, harvests, deals — the investor angle</span>
+  </div>
+  <div class="grid" id="feed-money"><div class="quiet">Counting beans…</div></div>
+
+  <footer>
+    <p><strong>Coffee Hotbox</strong> is an independent editorial publication covering coffee and
+       cannabis culture, products, and business. We don't sell coffee, cannabis, or anything else —
+       we just cover the world where the two meet. Wire stories belong to their original publishers;
+       headlines link out to the source.</p>
+    <p class="fine">Not affiliated with or endorsed by any coffee or cannabis brand. Cannabis content
+       is for adults 21+ and only where legal. © 2026 Coffee Hotbox · coffeehotbox.com</p>
+  </footer>
+
+</div>
+
+<script>
+/* =====================================================================
+   THE WIRE — auto-updating RSS lanes for Coffee Hotbox (prototype v3)
+   - Each section pulls from public RSS feeds: headline + short blurb,
+     linking OUT to the original publisher. Nothing is copied wholesale.
+   - Add a source: drop {name:"...", url:"https://.../feed"} into a lane.
+   - If a feed is down, that section says so; the rest keep flowing.
+   ===================================================================== */
+
+const LANES = [
+  { id:"feed-culture", chip:"Culture & Craft", feeds:[
+      {name:"Sprudge", url:"https://sprudge.com/feed"}
+  ]},
+  { id:"feed-crossover", chip:"New Products", feeds:[
+      {name:"Google News", url:"https://news.google.com/rss/search?q=%22cannabis+coffee%22+OR+%22THC+coffee%22+OR+%22CBD+coffee%22+OR+%22cannabis+cafe%22&hl=en-US&gl=US&ceid=US:en"}
+  ]},
+  { id:"feed-laws", chip:"Laws & Policy", feeds:[
+      {name:"Marijuana Moment", url:"https://www.marijuanamoment.net/feed"}
+  ]},
+  { id:"feed-money", chip:"Supply Chain & Money", feeds:[
+      {name:"Daily Coffee News", url:"https://dailycoffeenews.com/feed"},
+      {name:"New Cannabis Ventures", url:"https://newcannabisventures.com/feed"}
+  ]}
+];
+
+const MAX_PER_LANE = 6;
+const REFRESH_MS = 30 * 60 * 1000;
+
+function esc(s){ return String(s||"").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c])); }
+function strip(html){ const d=document.createElement("div"); d.innerHTML=html||""; return (d.textContent||"").replace(/\s+/g," ").trim(); }
+function cut(s,n){ return s.length>n ? s.slice(0,n-1)+"…" : s; }
+function ago(d){ if(!d||isNaN(d)) return "";
+  const m=Math.floor((Date.now()-d)/60000);
+  if(m<1) return "just now"; if(m<60) return m+"m ago";
+  const h=Math.floor(m/60); if(h<24) return h+"h ago";
+  return Math.floor(h/24)+"d ago"; }
+
+/* Best available image from a raw RSS item (enclosure / media / first <img>). */
+function imgFromItem(it, rawHtml){
+  const enc = it.querySelector("enclosure");
+  if(enc && (enc.getAttribute("type")||"").startsWith("image")) return enc.getAttribute("url");
+  const media = it.getElementsByTagName("media:content")[0] || it.getElementsByTagName("media:thumbnail")[0];
+  if(media && media.getAttribute("url")) return media.getAttribute("url");
+  const m = String(rawHtml||"").match(/<img[^>]+src=["']([^"']+)["']/i);
+  return m ? m[1] : "";
+}
+
+/* Fetch one feed: raw CORS relay first (real RSS XML), JSON service as backup. */
+async function fetchFeed(feed){
+  try{
+    const r = await fetch("https://api.allorigins.win/raw?url="+encodeURIComponent(feed.url), {signal:AbortSignal.timeout(12000)});
+    if(!r.ok) throw 0;
+    const xml = new DOMParser().parseFromString(await r.text(), "text/xml");
+    return [...xml.querySelectorAll("item")].map(it => {
+      const rawDesc = it.querySelector("description")?.textContent||"";
+      return {
+        title: strip(it.querySelector("title")?.textContent||""),
+        link:  (it.querySelector("link")?.textContent||"").trim(),
+        date:  new Date(it.querySelector("pubDate")?.textContent||""),
+        blurb: strip(rawDesc),
+        img:   imgFromItem(it, rawDesc),
+        source: feed.name
+      };
+    }).filter(x=>x.title && x.link);
+  }catch(e){
+    const r = await fetch("https://api.rss2json.com/v1/api.json?rss_url="+encodeURIComponent(feed.url), {signal:AbortSignal.timeout(12000)});
+    const j = await r.json();
+    return (j.items||[]).map(it => ({
+      title: it.title||"", link: it.link||"", date: new Date(it.pubDate||""),
+      blurb: strip(it.description||""),
+      img: it.thumbnail || (it.enclosure && it.enclosure.link) || "",
+      source: feed.name
+    })).filter(x=>x.title && x.link);
+  }
+}
+
+function card(x, chip){
+  return '<article class="card">'+
+    (x.img ? '<img class="thumb" src="'+esc(x.img)+'" alt="" loading="lazy" onerror="this.remove()">' : '')+
+    '<div class="body"><span class="chip">'+esc(chip)+'</span>'+
+    '<h3><a href="'+esc(x.link)+'" target="_blank" rel="noopener">'+esc(x.title)+'</a></h3>'+
+    (x.blurb ? '<p>'+esc(cut(x.blurb,150))+'</p>' : '')+
+    '<div class="meta"><span class="src">'+esc(x.source)+'</span> · '+ago(x.date)+'</div></div></article>';
+}
+
+async function loadLane(lane){
+  const el = document.getElementById(lane.id);
+  try{
+    const batches = await Promise.all(lane.feeds.map(f => fetchFeed(f).catch(()=>[])));
+    let items = batches.flat();
+    const seen = new Set();
+    items = items.filter(x => !seen.has(x.link) && seen.add(x.link));
+    items.sort((a,b)=> (b.date-a.date) || 0);
+    if(!items.length){ el.innerHTML = '<div class="quiet">Wire\'s quiet in this section right now — check back soon.</div>'; return []; }
+    el.innerHTML = items.slice(0, MAX_PER_LANE).map(x => card(x, lane.chip)).join("");
+    return items;
+  }catch(e){
+    el.innerHTML = '<div class="quiet">Wire\'s quiet in this section right now — check back soon.</div>';
+    return [];
+  }
+}
+
+function fillHero(items){
+  if(!items || !items.length) return;
+  const x = items[0];
+  document.getElementById("heroTitle").textContent = x.title;
+  document.getElementById("heroBlurb").textContent  = cut(x.blurb || "The newest feature from the Culture & Craft wire.", 180);
+  const link = document.getElementById("heroLink");
+  link.href = x.link; link.target = "_blank"; link.rel = "noopener";
+  link.textContent = "Read Feature →";
+  document.getElementById("heroMeta").innerHTML =
+    '<span class="src">'+esc(x.source)+'</span> · '+ago(x.date);
+  if(x.img) document.getElementById("heroImgWrap").innerHTML =
+    '<img class="heroimg" src="'+esc(x.img)+'" alt="" onerror="this.parentNode.innerHTML=\'<div class=&quot;heroimg ph&quot;>Fresh stories, pulled in automatically</div>\'">';
+}
+
+async function loadWire(){
+  const st = document.getElementById("wireStatus");
+  st.textContent = "Loading the wire…";
+  const culture = await loadLane(LANES[0]);
+  fillHero(culture);
+  await Promise.all(LANES.slice(1).map(loadLane));
+  st.textContent = "Wire checked " + new Date().toLocaleTimeString([], {hour:"numeric", minute:"2-digit"}) +
+                 " · re-checks itself every 30 min while the page is open";
+}
+
+document.getElementById("refreshBtn").addEventListener("click", loadWire);
+loadWire();
+setInterval(loadWire, REFRESH_MS);
+</script>
+
+</body>
+</html>  
